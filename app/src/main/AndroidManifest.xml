@@ -3,6 +3,7 @@
     package="com.android.budgetpanda">
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -10,16 +11,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".control.months.MonthDataActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".control.todo.TodoListActivity" />
+        <activity android:name=".control.statistics.StatisticsActivity" />
+        <activity
             android:name=".register.RegisterActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".login.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".control.ControlActivity" />
+        <activity
+            android:name=".control.ControlActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

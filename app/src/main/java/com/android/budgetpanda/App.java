@@ -2,8 +2,11 @@ package com.android.budgetpanda;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 
+import com.android.budgetpanda.backend.months.MonthsTracking;
 import com.google.firebase.database.FirebaseDatabase;
+
 
 public class App extends Application {
 
@@ -13,6 +16,8 @@ public class App extends Application {
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         //remove old shared preferences
-        getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE).edit().clear().apply();
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+        MonthsTracking monthsTracking = Injection.provideMonthsTracking(sharedPreferences);
+        monthsTracking.setFirstMonth();
     }
 }

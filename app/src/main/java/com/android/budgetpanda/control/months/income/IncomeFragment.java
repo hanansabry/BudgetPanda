@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.budgetpanda.EmptyRecyclerView;
@@ -20,6 +21,7 @@ import com.android.budgetpanda.model.Item;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,7 +32,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class IncomeFragment extends Fragment implements ItemsRepository.ItemsRetrievingCallback {
+public class IncomeFragment extends Fragment implements ItemsRepository.ItemsRetrievingCallback, ItemsRepository.TotalAmountCallback {
 
     private ItemsPresenter presenter;
     private ItemsAdapter adapter;
@@ -64,6 +66,7 @@ public class IncomeFragment extends Fragment implements ItemsRepository.ItemsRet
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
         presenter = new ItemsPresenter(Injection.provideItemsRepository(sharedPreferences), Injection.provideMonthsTracking(sharedPreferences));
         presenter.retrieveItems(Item.ITEM_CATEGORY.Income, this);
+        presenter.getTotalAmount(Item.ITEM_CATEGORY.Income, this);
         initializeRecyclerView(view);
         setMonthEditable();
     }
@@ -94,5 +97,16 @@ public class IncomeFragment extends Fragment implements ItemsRepository.ItemsRet
     @Override
     public void onItemsRetrievedFailed(String errmsg) {
         Toast.makeText(getContext(), errmsg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onGetTotalAmount(double amount) {
+        TextView totalAmountTextView = getView().findViewById(R.id.total_amount_tv);
+        totalAmountTextView.setText(String.format(Locale.getDefault(), "Total Amount: %.1f", amount));
+    }
+
+    @Override
+    public void onGetTotalAmountFailed(String errmgs) {
+        Toast.makeText(getContext(), errmgs, Toast.LENGTH_LONG).show();
     }
 }

@@ -200,7 +200,7 @@ public class ItemsRepositoryImpl implements ItemsRepository {
 
                     double diff = income - expense;
                     int month = Integer.valueOf(monthSnapshot.getKey().split("_")[0]);
-                    monthsData.put(month , diff);
+                    monthsData.put(month, diff);
                 }
                 callback.onDataRetrievedSuccessfully(monthsData);
             }
@@ -210,5 +210,28 @@ public class ItemsRepositoryImpl implements ItemsRepository {
                 callback.onDataRetrievedFailed(databaseError.getMessage());
             }
         });
+    }
+
+    @Override
+    public void getTotalAmount(final Item.ITEM_CATEGORY expenseOrIncome, final TotalAmountCallback callback) {
+        String monthId = monthsTracking.getSelectedMonth() + "_" + monthsTracking.getSelectedYear();
+        mDatabase.child(userId)
+                .child(monthId)
+                .child(expenseOrIncome.name())
+                .child("totalAmount")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.getValue() != null) {
+                            long totalAmount = dataSnapshot.getValue(Long.class);
+                            callback.onGetTotalAmount(totalAmount);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        callback.onGetTotalAmountFailed(databaseError.getMessage());
+                    }
+                });
     }
 }

@@ -1,9 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/seamless_bg3"
+    android:orientation="vertical"
     tools:context=".control.todo.TodoListActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.android.budgetpanda.EmptyRecyclerView
+        android:id="@+id/todo_items_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true" />
+
+    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton-->
+        <!--android:id="@+id/fab"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_above="@id/add_activity_layout"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:src="@drawable/ic_add_white"-->
+        <!--android:onClick="onFabClicked"-->
+        <!--app:fabSize="normal" />-->
+
+
+    <RelativeLayout
+        android:id="@+id/add_activity_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="4dp"
+        android:background="@color/colorThird">
+
+        <ImageButton
+            android:id="@+id/add_activity_btn"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"
+            android:background="@null"
+            android:onClick="onSendClicked"
+            android:src="@drawable/ic_send_white" />
+
+        <EditText
+            android:id="@+id/activityEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_toStartOf="@id/add_activity_btn"
+            android:hint="Write your activity here"
+            android:textColor="@color/colorPrimary" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

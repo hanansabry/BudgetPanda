@@ -9,6 +9,8 @@ import com.android.budgetpanda.backend.evaluation.StatusEvaluationRepository;
 import com.android.budgetpanda.backend.items.ItemsRepository;
 import com.android.budgetpanda.backend.items.ItemsRepositoryImpl;
 import com.android.budgetpanda.backend.months.MonthsTracking;
+import com.android.budgetpanda.backend.todo.TodoListRepository;
+import com.android.budgetpanda.backend.todo.TodoListRepositoryImpl;
 import com.android.budgetpanda.backend.types.TypesRepository;
 import com.android.budgetpanda.backend.types.TypesRepositoryImpl;
 
@@ -34,5 +36,9 @@ public class Injection {
 
     public static StatusEvaluationRepository provideStatusEvaluationRepository(SharedPreferences sharedPreferences) {
         return new StatusEvaluationRepository(provideMonthsTracking(sharedPreferences));
+    }
+
+    public static TodoListRepository provideTodoListRepository() {
+        return new TodoListRepositoryImpl();
     }
 }

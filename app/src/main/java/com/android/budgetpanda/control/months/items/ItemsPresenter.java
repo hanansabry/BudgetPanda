@@ -58,4 +58,8 @@ public class ItemsPresenter {
     public boolean isPreviousMonth() {
         return monthsTracking.isPreviousMonth();
     }
+
+    public void getTotalAmount(Item.ITEM_CATEGORY income, ItemsRepository.TotalAmountCallback callback) {
+        itemsRepository.getTotalAmount(income, callback);
+    }
 }

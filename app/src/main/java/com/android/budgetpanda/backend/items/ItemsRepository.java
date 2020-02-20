@@ -27,6 +27,12 @@ public interface ItemsRepository {
         void onItemInsertedFailed(String errmsg);
     }
 
+    interface TotalAmountCallback {
+        void onGetTotalAmount(double amount);
+
+        void onGetTotalAmountFailed(String errmgs);
+    }
+
     void retrieveItemsByMonth(Item.ITEM_CATEGORY itemCategory, int month, int year, ItemsRetrievingCallback callback);
 
     void addNewItem(Item.ITEM_CATEGORY itemCategory, Item item, ItemInsertingCallback callback);
@@ -36,4 +42,6 @@ public interface ItemsRepository {
     void retrieveLowPrioritiesItems(int month, int year, ItemsRetrievingCallback callback);
 
     void retrieveAllMonthsDataForGraph(AllMonthsDataRetrievingCallback callback);
+
+    void getTotalAmount(Item.ITEM_CATEGORY expenseOrIncome, TotalAmountCallback callback);
 }

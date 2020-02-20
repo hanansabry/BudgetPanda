@@ -47,6 +47,16 @@ public class MonthsTracking {
         return currentMonth == month;
     }
 
+    public boolean isPreviousMonth() {
+        int currentMonth = calendar.get(Calendar.MONTH);
+        int currentYear = calendar.get(Calendar.YEAR);
+        if (getSelectedMonth() < currentMonth && getSelectedYear() == currentYear) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     private boolean isFirstUse() {
         boolean firstUse = sharedPreferences.getBoolean("FIRST_USE", true);
         if (firstUse) {

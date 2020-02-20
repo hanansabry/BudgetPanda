@@ -3,6 +3,7 @@ package com.android.budgetpanda.control.months.items;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.android.budgetpanda.R;
@@ -17,9 +18,11 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHolder> {
 
     private final ItemsPresenter presenter;
+    private boolean deletable;
 
-    public ItemsAdapter(ItemsPresenter presenter) {
+    public ItemsAdapter(ItemsPresenter presenter, boolean deletable) {
         this.presenter = presenter;
+        this.deletable = deletable;
     }
 
     public void bindItems(ArrayList<Item> items) {
@@ -48,6 +51,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
     class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private TextView itemNameTV, typeTV, priorityTV, amountTV;
+        private ImageButton deleteButton;
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -56,6 +60,21 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
             typeTV = itemView.findViewById(R.id.type_textview);
             priorityTV = itemView.findViewById(R.id.priority_textview);
             amountTV = itemView.findViewById(R.id.amount_textview);
+            deleteButton = itemView.findViewById(R.id.delete_btn);
+
+            if (deletable) {
+                deleteButton.setVisibility(View.VISIBLE);
+                deleteButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        presenter.removeItem(getAdapterPosition());
+                        notifyItemRemoved(getAdapterPosition());
+                        notifyItemRangeChanged(getAdapterPosition(), presenter.getItemsSize());
+                    }
+                });
+            } else {
+                deleteButton.setVisibility(View.GONE);
+            }
         }
 
         public void setItemData(Item item) {

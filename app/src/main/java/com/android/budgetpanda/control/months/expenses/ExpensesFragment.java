@@ -34,6 +34,7 @@ public class ExpensesFragment extends Fragment implements ItemsRepository.ItemsR
 
     private ItemsPresenter presenter;
     private ItemsAdapter adapter;
+    private FloatingActionButton fab;
 
     public ExpensesFragment() {
         // Required empty public constructor
@@ -51,7 +52,7 @@ public class ExpensesFragment extends Fragment implements ItemsRepository.ItemsR
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        FloatingActionButton fab = view.findViewById(R.id.fab);
+        fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,6 +65,13 @@ public class ExpensesFragment extends Fragment implements ItemsRepository.ItemsR
         presenter = new ItemsPresenter(Injection.provideItemsRepository(sharedPreferences), Injection.provideMonthsTracking(sharedPreferences));
         presenter.retrieveItems(Item.ITEM_CATEGORY.Expense, this);
         initializeRecyclerView(view);
+        setMonthEditable();
+    }
+
+    private void setMonthEditable() {
+        if (presenter.isPreviousMonth()) {
+            fab.setVisibility(View.GONE);
+        }
     }
 
     private void initializeRecyclerView(View view) {
@@ -74,7 +82,7 @@ public class ExpensesFragment extends Fragment implements ItemsRepository.ItemsR
         itemsRecyclerView.addItemDecoration(dividerItemDecoration);
         itemsRecyclerView.setLayoutManager(layoutManager);
 
-        adapter = new ItemsAdapter(presenter);
+        adapter = new ItemsAdapter(presenter, false);
         itemsRecyclerView.setAdapter(adapter);
     }
 

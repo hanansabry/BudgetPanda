@@ -3,12 +3,103 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/seamless_bg3"
     tools:context=".control.months.evaluate.EvaluateFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <Button
+        android:id="@+id/evaluate_btn"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/btn_rounded_color_accent"
+        android:fontFamily="@font/didact_gothic"
+        android:text="EVALUATE YOUR STATUS NOW"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:visibility="visible" />
+
+    <RelativeLayout
+        android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/status_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/anton"
+                android:text="Budget Status"
+                android:textColor="@color/white"
+                android:textSize="32sp" />
+
+            <TextView
+                android:id="@+id/status_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NO STATUS"
+                android:textColor="@color/colorAccent"
+                android:fontFamily="@font/anton"
+                android:textSize="72sp"/>
+
+            <TextView
+                android:id="@+id/status_amount_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 KD"
+                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/anton"
+                android:textSize="48sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/recmmandation_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/status_layout"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Recommendation"
+                android:padding="8dp"
+                android:background="@color/colorThird"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
+
+            <com.android.budgetpanda.EmptyRecyclerView
+                android:id="@+id/low_priority_items_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="56dp"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/re_evaluate_btn"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/btn_rounded_color_accent"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="2dp"
+            android:text="RE-EVALUATE"
+            android:textColor="@color/white"
+            android:fontFamily=""/>
+    </RelativeLayout>
+
 
 </FrameLayout>

@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 public interface ItemsRepository {
 
+
+
     interface ItemsRetrievingCallback {
         void onItemsRetrievedSuccessfully(ArrayList<Item> items);
 
@@ -21,4 +23,8 @@ public interface ItemsRepository {
     void retrieveItemsByMonth(Item.ITEM_CATEGORY itemCategory, int month, int year, ItemsRetrievingCallback callback);
 
     void addNewItem(Item.ITEM_CATEGORY itemCategory, Item item, ItemInsertingCallback callback);
+
+    void removeItem(Item item);
+
+    void retrieveLowPrioritiesItems(int month, int year, ItemsRetrievingCallback callback);
 }

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.android.budgetpanda.backend.authentication.AuthenticationRepository;
 import com.android.budgetpanda.backend.authentication.AuthenticationRepositoryImpl;
+import com.android.budgetpanda.backend.evaluation.StatusEvaluationRepository;
 import com.android.budgetpanda.backend.items.ItemsRepository;
 import com.android.budgetpanda.backend.items.ItemsRepositoryImpl;
 import com.android.budgetpanda.backend.months.MonthsTracking;
@@ -29,5 +30,9 @@ public class Injection {
 
     public static ItemsRepository provideItemsRepository(SharedPreferences sharedPreferences) {
         return new ItemsRepositoryImpl(provideMonthsTracking(sharedPreferences));
+    }
+
+    public static StatusEvaluationRepository provideStatusEvaluationRepository(SharedPreferences sharedPreferences) {
+        return new StatusEvaluationRepository(provideMonthsTracking(sharedPreferences));
     }
 }

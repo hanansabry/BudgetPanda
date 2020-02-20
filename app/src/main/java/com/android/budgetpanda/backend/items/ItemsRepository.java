@@ -3,6 +3,7 @@ package com.android.budgetpanda.backend.items;
 import com.android.budgetpanda.model.Item;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public interface ItemsRepository {
 
@@ -12,6 +13,12 @@ public interface ItemsRepository {
         void onItemsRetrievedSuccessfully(ArrayList<Item> items);
 
         void onItemsRetrievedFailed(String errmsg);
+    }
+
+    interface AllMonthsDataRetrievingCallback {
+        void onDataRetrievedSuccessfully(HashMap<Integer, Double> monthsStatus);
+
+        void onDataRetrievedFailed(String errmsg);
     }
 
     interface ItemInsertingCallback {
@@ -27,4 +34,6 @@ public interface ItemsRepository {
     void removeItem(Item item);
 
     void retrieveLowPrioritiesItems(int month, int year, ItemsRetrievingCallback callback);
+
+    void retrieveAllMonthsDataForGraph(AllMonthsDataRetrievingCallback callback);
 }

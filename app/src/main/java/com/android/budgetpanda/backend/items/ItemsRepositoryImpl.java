@@ -177,4 +177,38 @@ public class ItemsRepositoryImpl implements ItemsRepository {
                     }
                 });
     }
+
+    @Override
+    public void retrieveAllMonthsDataForGraph(final AllMonthsDataRetrievingCallback callback) {
+        mDatabase.child(userId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                HashMap<Integer, Double> monthsData = new HashMap<>();
+                for (DataSnapshot monthSnapshot : dataSnapshot.getChildren()) {
+                    double income = 0, expense = 0;
+                    if (monthSnapshot.hasChild("Income")) {
+                        if (monthSnapshot.child("Income").hasChild("totalAmount")) {
+                            income = monthSnapshot.child("Income").child("totalAmount").getValue(Long.class);
+                        }
+                    }
+
+                    if (monthSnapshot.hasChild("Expense")) {
+                        if (monthSnapshot.child("Expense").hasChild("totalAmount")) {
+                            expense = monthSnapshot.child("Expense").child("totalAmount").getValue(Long.class);
+                        }
+                    }
+
+                    double diff = income - expense;
+                    int month = Integer.valueOf(monthSnapshot.getKey().split("_")[0]);
+                    monthsData.put(month , diff);
+                }
+                callback.onDataRetrievedSuccessfully(monthsData);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                callback.onDataRetrievedFailed(databaseError.getMessage());
+            }
+        });
+    }
 }

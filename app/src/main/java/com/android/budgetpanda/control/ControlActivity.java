@@ -11,6 +11,8 @@ import com.android.budgetpanda.R;
 import com.android.budgetpanda.control.months.MonthDataActivity;
 import com.android.budgetpanda.control.statistics.StatisticsActivity;
 import com.android.budgetpanda.control.todo.TodoListActivity;
+import com.android.budgetpanda.login.LoginActivity;
+import com.google.firebase.auth.FirebaseAuth;
 import com.whiteelephant.monthpicker.MonthPickerDialog;
 
 import java.util.Calendar;
@@ -69,5 +71,16 @@ public class ControlActivity extends AppCompatActivity {
                 .build()
                 .show();
 
+    }
+
+    public void onLogoutClicked(View view) {
+        FirebaseAuth.getInstance().signOut();
+        goToLoginScreen();
+    }
+
+    private void goToLoginScreen() {
+        Intent homeIntent = new Intent(this, LoginActivity.class);
+        homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(homeIntent);
     }
 }
